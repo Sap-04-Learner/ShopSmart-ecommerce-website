@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="assets/css/style_main.css" />
+    <link rel="stylesheet" href="assets/css/profile.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">ShopSmart</div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="user">
+        <!-- Placeholder for dynamic content -->
+        <div id="dynamic-user-info"></div>
+        <div class="cart">
+          <a href="cart.html">🛒 Cart</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="profile-main">
+      <section class="profile-container">
+        <h1>User Profile</h1>
+        <div class="profile-card">
+          <div class="profile-pic">
+            <i class="fa fa-user-circle"></i>
+          </div>
+          <div class="profile-details">
+            <h2 id="profile-name"></h2>
+            <p><strong>Email: </strong><span id="profile-email"></span></p>
+            <p><strong>Phone: </strong><span id="profile-phone"></span></p>
+            <p><strong>Address: </strong><span id="profile-address"></span></p>
+          </div>
+          <a href="edit-profile.html" class="edit-btn">Edit Profile</a>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+          document.getElementById("profile-name").innerText = user.name;
+          document.getElementById("profile-email").innerText = user.email;
+          document.getElementById("profile-phone").innerText =
+            user.phone || "N/A"; // Assuming phone exists
+          document.getElementById("profile-address").innerText =
+            user.address || "N/A"; // Assuming address exists
+        } else {
+          window.location.href = "login.html"; // Redirect to login page if no user found
+        }
+      });
+    </script>
+    <script src="assets/js/navbar.js"></script>
+  </body>
+</html>

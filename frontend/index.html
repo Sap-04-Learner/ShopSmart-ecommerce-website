@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopSmart</title>
+    <link rel="stylesheet" href="assets/css/style_main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  </head>
+  <body>
+    <header>
+      <div class="logo">ShopSmart</div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="user">
+        <!-- Placeholder for dynamic content -->
+        <div id="dynamic-user-info"></div>
+        <div class="cart">
+          <a href="cart.html">🛒 Cart</a>
+        </div>
+      </div>
+    </header>
+
+    <div id="notificationContainer"></div>
+
+    <section id="hero">
+      <div class="hero-container">
+        <button class="arrow left" onclick="prevSlide()">&#10094;</button>
+        <div class="hero-content">
+          <h1>Discover Amazing Deals At ShopSmart</h1>
+          <h3>Your one-stop shop for everything you need!</h3>
+          <a href="#products" class="btn">Shop Now</a>
+        </div>
+        <button class="arrow right" onclick="nextSlide()">&#10095;</button>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <h2>Featured Products</h2>
+      <div class="product-list">
+        <div class="product-card" data-id="1">
+          <img src="assets/images/camera.jpg" alt="Camera" />
+          <h3>Camera</h3>
+          <div class="product-details">
+            <p class="price">Rs 5699.99</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="2">
+          <img src="assets/images/waterbotle.jpg" alt="waterbottle" />
+          <h3>Waterbottle</h3>
+          <div class="product-details">
+            <p class="price">Rs 599.90</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="3">
+          <img src="assets/images/watch.jpg" alt="Watch" />
+          <h3>Shiva Watch</h3>
+          <div class="product-details">
+            <p class="price">Rs 599.90</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="4">
+          <img src="assets/images/perfume.jpg" alt="Perfume" />
+          <h3>Fermado Perfume</h3>
+          <div class="product-details">
+            <p class="price">Rs 599.90</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="5">
+          <img src="assets/images/headphone.jpg" alt="Headphone" />
+          <h3>HeadPhone</h3>
+          <div class="product-details">
+            <p class="price">Rs 599.90</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-id="6">
+          <img src="assets/images/Football.jpg" alt="Football" />
+          <h3>Nivia Football</h3>
+          <div class="product-details">
+            <p class="price">Rs 599.90</p>
+            <div class="product-actions">
+              <button class="add-to-cart">Add to Cart</button>
+              <button class="buy-btn">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 ShopSmart. All rights reserved.</p>
+      <div class="socials">
+        <a href="#">Facebook</a>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+      </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="productModal">
+      <div class="modal-content">
+        <img id="modalImage" src="" alt="Product" />
+        <div class="details">
+          <h3 id="modalTitle"></h3>
+          <p id="modalPrice"></p>
+          <p id="modalDescription"></p>
+          <p id="modalAvailability"></p>
+          <button id="modalAddToCart" class="cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      <span class="modal-close" id="modalClose">&times;</span>
+    </div>
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/navbar.js"></script>
+  </body>
+</html>

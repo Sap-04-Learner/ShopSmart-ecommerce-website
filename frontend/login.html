@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ShopSmart</title>
+    <link rel="stylesheet" href="assets/css/authenticate.css" />
+  </head>
+  <body class="auth-body">
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <div class="auth-container">
+      <div class="auth-logo">ShopSmart</div>
+      <div class="auth-card">
+        <h2>Login</h2>
+        <form id="login-form">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <button type="submit" class="auth-btn">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+      </div>
+    </div>
+
+    <script>
+      function showNotification(message, type = "success") {
+        const container = document.getElementById("notificationContainer");
+
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+
+        container.appendChild(notification);
+
+        // Automatically remove the notification after the animation finishes
+        setTimeout(() => {
+          notification.style.animation = "fadeOut 0.5s forwards";
+          notification.addEventListener("animationend", () =>
+            notification.remove()
+          );
+        }, 4500); // Notification stays for 5 seconds
+      }
+
+      const loginForm = document.getElementById("login-form");
+
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(loginForm);
+        const payload = Object.fromEntries(formData);
+
+        try {
+          const response = await fetch("http://localhost:8000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+
+            // Save both the JWT token and username in localStorage
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                name: data.username, // Save the username
+                token: data.token, // Save the JWT token
+              })
+            );
+
+            showNotification("Login successful!", "success");
+            // Wait for the notification to finish, then redirect
+            setTimeout(() => {
+              window.location.href = "index.html"; // Redirect to the main page after a short delay
+            }, 1000); // Wait for 5 seconds (adjust timing based on your animation duration)
+          } else {
+            const errorData = await response.json();
+            showNotification(
+              `Login failed: ${
+                errorData.message || "Please check your credentials."
+              }`,
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Error during login:", error);
+          showNotification("An error occurred. Please try again.", "error");
+        }
+      });
+    </script>
+  </body>
+</html>

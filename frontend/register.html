@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register - ShopSmart</title>
+    <link rel="stylesheet" href="assets/css/authenticate.css" />
+  </head>
+  <body class="auth-body">
+    <div id="notificationContainer" class="notification-container"></div>
+
+    <div class="auth-container">
+      <div class="auth-logo">ShopSmart</div>
+      <div class="auth-card">
+        <h2>Register</h2>
+        <form id="register-form">
+          <label for="name">Full Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+
+          <label for="confirm-password">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="Confirm your password"
+            required
+          />
+
+          <button type="submit" class="auth-btn">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+      </div>
+    </div>
+
+    <script>
+      function showNotification(message, type = "success") {
+        const container = document.getElementById("notificationContainer");
+
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+
+        container.appendChild(notification);
+
+        // Automatically remove the notification after the animation finishes
+        setTimeout(() => {
+          notification.style.animation = "fadeOut 0.5s forwards";
+          notification.addEventListener("animationend", () =>
+            notification.remove()
+          );
+        }, 4500); // Notification stays for 5 seconds
+      }
+
+      const registerForm = document.getElementById("register-form");
+
+      registerForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(registerForm);
+        const payload = Object.fromEntries(formData);
+
+        // Check if password and confirm-password match
+        if (payload.password !== payload["confirm-password"]) {
+          showNotification("Passwords do not match!", "error");
+          return;
+        }
+
+        // Client-side validation for email format (optional)
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailPattern.test(payload.email)) {
+          showNotification("Please enter a valid email address.", "error");
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:8000/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (response.ok) {
+            showNotification("Registration successful!", "success");
+            window.location.href = "login.html"; // Redirect to login page
+          } else {
+            const errorData = await response.json();
+            showNotification(
+              `Registration failed: ${
+                errorData.detail || "Please try again later."
+              }`,
+              "error"
+            );
+          }
+        } catch (error) {
+          console.error("Error during registration:", error);
+          showNotification("An error occurred. Please try again.", "error");
+        }
+      });
+    </script>
+  </body>
+</html>
