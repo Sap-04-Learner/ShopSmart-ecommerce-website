@@ -13,7 +13,7 @@ SECRET_KEY = "SKL242AE2O24IRU"
 ALGORITHM = "HS256"
 
 # Database setup
-DATABASE_URL = "mysql+mysqlconnector://root:07072004@localhost/ecom_web"
+DATABASE_URL = "mysql+mysqlconnector://root:<your_password>@localhost/ecom_web"
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
